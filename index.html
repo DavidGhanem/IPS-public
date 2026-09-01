@@ -9,6 +9,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<script>
+  // Same convention as the app itself (ThemeContext.jsx): a plain 'dark'
+  // class on <html>, persisted under the same localStorage key, so a
+  // seller's preference feels consistent whether they're on the marketing
+  // page or logged into /app. Runs before first paint to avoid a flash.
+  (function () {
+    if (localStorage.getItem('ips_theme') === 'dark') document.documentElement.classList.add('dark');
+  })();
+</script>
 <style>
   :root{
     --bg:#f7f8f9;
@@ -22,6 +31,20 @@
     --signal-soft:#e3f5f7;
     --sidebar:#0b1220;
   }
+  html.dark{
+    --bg:#0b1220;
+    --surface:#111827;
+    --border:#1f2937;
+    --text:#e5e7eb;
+    --text-dim:#94a3b8;
+    --text-faint:#64748b;
+    --signal:#0ea5b7;
+    --signal-dim:#2fc1d3;
+    --signal-soft:rgba(14,165,183,.14);
+    --sidebar:#0f172a;
+  }
+  html.dark .hero-glow{opacity:.7;}
+  html.dark nav{background:rgba(11,18,32,.85);}
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -59,6 +82,17 @@
   .nav-links{display:flex;align-items:center;gap:28px;}
   .nav-links a{font-size:14px;font-weight:600;color:var(--text-dim);text-decoration:none;}
   .nav-links a:hover{color:var(--text);}
+  .nav-right{display:flex;align-items:center;gap:12px;}
+  .theme-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:34px;height:34px;border-radius:8px;
+    background:none;border:1px solid var(--border);color:var(--text-dim);
+    cursor:pointer;padding:0;
+  }
+  .theme-toggle:hover{border-color:var(--signal);color:var(--text);}
+  .theme-toggle .icon-moon{display:none;}
+  html.dark .theme-toggle .icon-sun{display:none;}
+  html.dark .theme-toggle .icon-moon{display:block;}
   .btn{
     display:inline-flex;align-items:center;justify-content:center;
     padding:9px 18px;border-radius:8px;
@@ -197,6 +231,7 @@
     .mark{width:26px;height:26px;}
     .wordmark{font-size:15px;}
     nav .btn{padding:7px 14px;font-size:13px;}
+    .theme-toggle{width:30px;height:30px;}
     .wrap{padding:0 16px;}
 
     .hero-inner{padding:36px 16px 32px;}
@@ -250,7 +285,13 @@
       <a href="#screenshots">Screenshots</a>
       <a href="#contact">Contact</a>
     </div>
-    <a href="/app/" class="btn btn-primary">Log in</a>
+    <div class="nav-right">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+      <a href="/app/" class="btn btn-primary">Log in</a>
+    </div>
   </div>
 </nav>
 
@@ -348,6 +389,13 @@
 <footer>
   IPS is a product of Impulse Growth. Already have an account? <a href="/app/" style="color:var(--signal-dim);font-weight:600;">Log in</a>.
 </footer>
+
+<script>
+  document.getElementById('theme-toggle').addEventListener('click', function () {
+    var dark = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('ips_theme', dark ? 'dark' : 'light');
+  });
+</script>
 
 </body>
 </html>
