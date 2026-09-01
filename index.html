@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0b1220" />
+<title>IPS — Internet Program System</title>
+<meta name="description" content="The console internet resellers use to manage customers, packages, and renewals in one place." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f7f8f9;
+    --surface:#ffffff;
+    --border:#e2e6e9;
+    --text:#151b21;
+    --text-dim:#5b6670;
+    --text-faint:#8b97a0;
+    --signal:#0ea5b7;
+    --signal-dim:#0a7f8e;
+    --signal-soft:#e3f5f7;
+    --sidebar:#0b1220;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Inter",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.eyebrow,.wordmark{font-family:"Manrope",system-ui,sans-serif;}
+  a{color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+
+  /* ---- nav ---- */
+  nav{
+    position:sticky;top:0;z-index:10;
+    background:rgba(247,248,249,.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1080px;margin:0 auto;padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .wordmark{
+    display:flex;align-items:center;gap:9px;
+    font-weight:800;font-size:17px;letter-spacing:-.01em;
+  }
+  .mark{
+    width:30px;height:30px;border-radius:8px;
+    background:var(--signal);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .nav-links{display:flex;align-items:center;gap:28px;}
+  .nav-links a{font-size:14px;font-weight:600;color:var(--text-dim);text-decoration:none;}
+  .nav-links a:hover{color:var(--text);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:9px 18px;border-radius:8px;
+    font-size:14px;font-weight:700;text-decoration:none;
+    border:1px solid transparent;
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:active{transform:translateY(1px);}
+  .btn-primary{background:var(--signal);color:#fff;box-shadow:0 1px 2px rgba(14,165,183,.25);}
+  .btn-primary:hover{background:var(--signal-dim);}
+  .btn-ghost{border-color:var(--border);color:var(--text);}
+  .btn-ghost:hover{border-color:var(--signal);}
+
+  /* ---- hero ---- */
+  .hero{
+    background:var(--sidebar);
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background-image:radial-gradient(circle at 1px 1px, rgba(255,255,255,.08) 1.5px, transparent 0);
+    background-size:28px 28px;
+    opacity:.5;
+  }
+  .hero-glow{
+    position:absolute;top:-10%;right:-5%;
+    width:480px;height:480px;border-radius:50%;
+    background:radial-gradient(circle, rgba(14,165,183,.22), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{
+    position:relative;
+    padding:88px 24px 76px;
+    max-width:1080px;margin:0 auto;
+  }
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:#7fd8e2;
+    background:rgba(14,165,183,.14);
+    border:1px solid rgba(14,165,183,.3);
+    padding:5px 12px;border-radius:20px;
+    margin-bottom:22px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:#2fd8ea;}
+  .hero h1{
+    font-size:44px;font-weight:800;letter-spacing:-.02em;line-height:1.1;
+    max-width:16ch;margin:0 0 20px;
+    text-wrap:balance;
+  }
+  .hero p{
+    font-size:17px;line-height:1.65;color:#aebac3;
+    max-width:48ch;margin:0 0 32px;
+  }
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;}
+  .hero .btn{padding:12px 22px;font-size:15px;}
+  .hero .btn-ghost{border-color:rgba(255,255,255,.18);color:#fff;}
+  .hero .btn-ghost:hover{border-color:var(--signal);}
+
+  /* ---- sections ---- */
+  section{padding:72px 0;}
+  .section-head{max-width:56ch;margin:0 0 40px;}
+  .section-eyebrow{
+    font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--signal-dim);margin:0 0 10px;
+  }
+  h2{font-size:28px;font-weight:800;letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance;}
+  .section-head p{font-size:15.5px;color:var(--text-dim);line-height:1.6;margin:0;}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:800px){.grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:560px){.grid{grid-template-columns:1fr;}}
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:22px 20px;
+  }
+  .card .icon{
+    width:34px;height:34px;border-radius:8px;background:var(--signal-soft);
+    display:flex;align-items:center;justify-content:center;margin-bottom:14px;
+    color:var(--signal-dim);
+  }
+  .card h3{font-size:15px;font-weight:700;margin:0 0 6px;}
+  .card p{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin:0;}
+
+  /* ---- platforms ---- */
+  .platforms{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:32px 28px;
+    display:flex;gap:28px;flex-wrap:wrap;justify-content:space-between;
+  }
+  .platform{flex:1;min-width:160px;}
+  .platform .tag{
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--text-faint);margin:0 0 6px;
+  }
+  .platform .name{font-size:16px;font-weight:700;margin:0;}
+
+  /* ---- screenshots ---- */
+  .screens{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  @media (max-width:700px){.screens{grid-template-columns:1fr;}}
+  .screen-slot{
+    aspect-ratio:16/10;
+    border-radius:12px;
+    border:1px dashed var(--border);
+    background:var(--surface);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--text-faint);font-size:13px;
+  }
+  .screen-slot img{width:100%;height:100%;object-fit:cover;border-radius:11px;}
+
+  /* ---- cta band ---- */
+  .cta-band{
+    background:linear-gradient(135deg,var(--sidebar),#0d1a2b);
+    color:#fff;border-radius:16px;
+    padding:52px 40px;text-align:center;
+    margin:0 24px;
+  }
+  .cta-band h2{color:#fff;margin:0 0 12px;}
+  .cta-band p{color:#aebac3;font-size:15px;margin:0 0 26px;max-width:44ch;margin-left:auto;margin-right:auto;}
+
+  footer{
+    padding:36px 24px;text-align:center;
+    color:var(--text-faint);font-size:12.5px;
+    border-top:1px solid var(--border);margin-top:24px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="wordmark">
+      <span class="mark">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+      </span>
+      IPS
+    </a>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#screenshots">Screenshots</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="/app/" class="btn btn-primary">Log in</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <span class="eyebrow"><span class="dot"></span> Built for internet resellers</span>
+    <h1>Every customer, package, and payment — one signal.</h1>
+    <p>IPS is the console your team uses to manage internet subscribers, plans, and renewals — from a laptop, a phone, or a browser.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn btn-primary">Contact us to get started</a>
+      <a href="/app/" class="btn btn-ghost">Log in</a>
+    </div>
+  </div>
+</header>
+
+<section id="platform">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Platform</p>
+      <h2>What it handles, day to day</h2>
+      <p>One system for the parts of running a customer base that used to live in spreadsheets, chat threads, and memory.</p>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Customers &amp; packages</h3>
+        <p>Every subscriber, their plan, and their history in one record — searchable, filterable, always current.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 10h20"/></svg></div>
+        <h3>Payments &amp; receipts</h3>
+        <p>Cash and digital payments logged with instant PDF receipts — no separate bookkeeping step.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Renewal deadlines</h3>
+        <p>Upcoming and overdue renewals surfaced automatically — nothing slips through because someone forgot.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg></div>
+        <h3>Profit &amp; loss</h3>
+        <p>Live revenue and cost breakdown by package — see what's actually profitable, not just what's active.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg></div>
+        <h3>Bulk import</h3>
+        <p>Bring an existing customer list in from a spreadsheet, validated row by row before anything is saved.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>Private by account</h3>
+        <p>Each seller only ever sees their own customers and records — no shared or cross-account visibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Everywhere you work</p>
+      <h2>One account, three ways in</h2>
+    </div>
+    <div class="platforms">
+      <div class="platform"><p class="tag">Desktop</p><p class="name">Windows app</p></div>
+      <div class="platform"><p class="tag">Mobile</p><p class="name">Android app</p></div>
+      <div class="platform"><p class="tag">Anywhere</p><p class="name">Web browser</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screenshots">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">A look inside</p>
+      <h2>Screenshots</h2>
+    </div>
+    <div class="screens">
+      <div class="screen-slot">Screenshot coming soon</div>
+      <div class="screen-slot">Screenshot coming soon</div>
+      <div class="screen-slot">Screenshot coming soon</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="cta-band">
+    <h2>Ready to move off spreadsheets?</h2>
+    <p>Pricing depends on the size of your customer base — reach out and we'll set you up.</p>
+    <a href="mailto:hello@impulsegrowth.online" class="btn btn-primary">Contact us to get started</a>
+  </div>
+</section>
+
+<footer>
+  IPS is a product of Impulse Growth. Already have an account? <a href="/app/" style="color:var(--signal-dim);font-weight:600;">Log in</a>.
+</footer>
+
+</body>
+</html>
