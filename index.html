@@ -217,6 +217,9 @@
   }
   .cta-band h2{color:#fff;margin:0 0 12px;}
   .cta-band p{color:#aebac3;font-size:15px;margin:0 0 26px;max-width:44ch;margin-left:auto;margin-right:auto;}
+  .cta-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+  .cta-band .btn-ghost{border-color:rgba(255,255,255,.2);color:#fff;}
+  .cta-band .btn-ghost:hover{border-color:var(--signal);}
 
   footer{
     padding:36px 24px;text-align:center;
@@ -240,6 +243,8 @@
     .hero p{font-size:13.5px;line-height:1.5;max-width:none;margin-bottom:22px;}
     .hero-ctas{gap:8px;}
     .hero-ctas .btn{flex:1 1 auto;padding:10px 14px;font-size:13px;}
+    .cta-ctas{flex-direction:column;}
+    .cta-ctas .btn{width:100%;}
 
     section{padding:32px 0;}
     .section-head{margin-bottom:20px;}
@@ -382,7 +387,10 @@
   <div class="cta-band">
     <h2>Ready to move off spreadsheets?</h2>
     <p>Pricing depends on the size of your customer base — reach out and we'll set you up.</p>
-    <a href="https://wa.me/96181239350?text=Hi!%20I'm%20interested%20in%20IPS%20for%20my%20ISP%20business." target="_blank" rel="noopener noreferrer" class="btn btn-primary">Contact us to get started</a>
+    <div class="cta-ctas">
+      <a href="https://wa.me/96181239350?text=Hi!%20I'm%20interested%20in%20IPS%20for%20my%20ISP%20business." target="_blank" rel="noopener noreferrer" class="btn btn-primary">WhatsApp us</a>
+      <a href="mailto:hello@impulsegrowth.online?subject=Interested%20in%20IPS" class="btn btn-ghost">Email us</a>
+    </div>
   </div>
 </section>
 
