@@ -4,6 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#0b1220" />
+<!-- Tells the browser this page already handles its own light/dark theme,
+     so Android/Chrome's "force dark" auto-invert (and similar heuristics
+     in other browsers) leaves our actual colors alone instead of
+     re-inverting them on top of what's already themed below. -->
+<meta name="color-scheme" content="light dark" />
 <title>IPS — Internet Program System</title>
 <meta name="description" content="The console internet resellers use to manage customers, packages, and renewals in one place." />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -23,6 +28,12 @@
 </script>
 <style>
   :root{
+    /* Paired with the <meta name="color-scheme"> tag above -- this is what
+       actually pins native browser chrome (scrollbars, form controls,
+       forced-dark heuristics) to OUR light/dark state instead of the OS's,
+       so a phone/browser set to force dark can't re-tint colors we already
+       chose ourselves. */
+    color-scheme:light;
     --bg:#f7f8f9;
     --surface:#ffffff;
     --border:#e2e6e9;
@@ -35,6 +46,7 @@
     --sidebar:#0b1220;
   }
   html.dark{
+    color-scheme:dark;
     --bg:#0b1220;
     --surface:#111827;
     --border:#1f2937;

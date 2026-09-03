@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
+    <!-- Same reasoning as frontend/landing/index.html's color-scheme tag --
+         without this, a browser/OS "force dark" setting can re-invert our
+         own colors on top of our own light/dark theme (ThemeContext.jsx),
+         producing off colors in both modes. -->
+    <meta name="color-scheme" content="light dark" />
     <title>IPS - Internet Program System</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/app/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/app/favicon.png" />
@@ -11,8 +16,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/app/assets/index-Bwhl7TTM.js"></script>
-    <link rel="stylesheet" crossorigin href="/app/assets/index-CH9P9yTF.css">
+    <script type="module" crossorigin src="/app/assets/index-DP5cOhCo.js"></script>
+    <link rel="stylesheet" crossorigin href="/app/assets/index-CeDs-xG3.css">
   </head>
   <body>
     <div id="root"></div>
