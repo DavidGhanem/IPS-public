@@ -220,8 +220,10 @@
     background:var(--surface);
     display:flex;align-items:center;justify-content:center;
     color:var(--text-faint);font-size:13px;
+    overflow:hidden;
   }
-  .screen-slot img{width:100%;height:100%;object-fit:cover;border-radius:11px;}
+  .screen-slot:has(img){border-style:solid;}
+  .screen-slot img{width:100%;height:100%;object-fit:cover;object-position:top;}
 
   /* ---- cta band ---- */
   .cta-band{
@@ -453,9 +455,11 @@
       <h2>Screenshots</h2>
     </div>
     <div class="screens">
-      <div class="screen-slot">Screenshot coming soon</div>
-      <div class="screen-slot">Screenshot coming soon</div>
-      <div class="screen-slot">Screenshot coming soon</div>
+      <div class="screen-slot"><img src="screenshots/dashboard.png" alt="IPS dashboard showing customer, revenue, and profit & loss stats" loading="lazy" /></div>
+      <div class="screen-slot"><img src="screenshots/customers.png" alt="IPS customers list with package, payment status, and account status columns" loading="lazy" /></div>
+      <div class="screen-slot"><img src="screenshots/customer-profile.png" alt="IPS customer profile showing package pricing, purchase history, and payment history" loading="lazy" /></div>
+      <div class="screen-slot"><img src="screenshots/packages.png" alt="IPS packages grid showing plan pricing and profit per package" loading="lazy" /></div>
+      <div class="screen-slot"><img src="screenshots/deadlines.png" alt="IPS deadlines view tracking upcoming subscription expirations" loading="lazy" /></div>
     </div>
   </div>
 </section>
