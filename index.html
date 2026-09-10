@@ -120,6 +120,7 @@
   .btn-primary:hover{background:var(--signal-dim);}
   .btn-ghost{border-color:var(--border);color:var(--text);}
   .btn-ghost:hover{border-color:var(--signal);}
+  .nav-download{gap:6px;padding:8px 14px;font-size:13px;}
 
   /* ---- hero ---- */
   .hero{
@@ -276,6 +277,8 @@
     .mark{width:26px;height:26px;}
     .wordmark{font-size:15px;}
     nav .btn{padding:7px 14px;font-size:13px;}
+    .nav-download{padding:7px 9px;}
+    .nav-download span{display:none;}
     .theme-toggle{width:30px;height:30px;}
     .wrap{padding:0 16px;}
 
@@ -335,11 +338,14 @@
     </a>
     <div class="nav-links">
       <a href="#platform">Platform</a>
-      <a href="#download">Download</a>
       <a href="#screenshots">Screenshots</a>
       <a href="#contact">Contact</a>
     </div>
     <div class="nav-right">
+      <a href="#download" class="btn btn-ghost nav-download">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+        <span>Download</span>
+      </a>
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
         <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
@@ -460,6 +466,7 @@
       <div class="screen-slot"><img src="screenshots/customer-profile.png" alt="IPS customer profile showing package pricing, purchase history, and payment history" loading="lazy" /></div>
       <div class="screen-slot"><img src="screenshots/packages.png" alt="IPS packages grid showing plan pricing and profit per package" loading="lazy" /></div>
       <div class="screen-slot"><img src="screenshots/deadlines.png" alt="IPS deadlines view tracking upcoming subscription expirations" loading="lazy" /></div>
+      <div class="screen-slot"><img src="screenshots/profit-loss.png" alt="IPS profit and loss breakdown showing revenue, cost, and profit per customer" loading="lazy" /></div>
     </div>
   </div>
 </section>
