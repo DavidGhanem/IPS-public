@@ -242,6 +242,31 @@
     border-top:1px solid var(--border);margin-top:24px;
   }
 
+  /* ---- download ---- */
+  .download-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:700px){.download-grid{grid-template-columns:1fr;}}
+  .download-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:26px 24px;
+  }
+  .download-card .tag{
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--signal-dim);margin:0 0 8px;
+  }
+  .download-card h3{font-size:18px;font-weight:800;margin:0 0 8px;letter-spacing:-.01em;}
+  .download-card p{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin:0 0 20px;}
+  .download-btn{width:100%;}
+  .download-btn[aria-disabled="true"]{
+    opacity:.5;pointer-events:none;background:var(--text-faint);box-shadow:none;
+  }
+  .install-note{
+    display:flex;gap:14px;margin-top:20px;
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:18px 20px;border-left:3px solid var(--signal);
+  }
+  .install-note strong{display:block;font-size:13.5px;font-weight:700;margin-bottom:4px;}
+  .install-note p{font-size:13px;color:var(--text-dim);line-height:1.55;margin:0;}
+
   /* ---- mobile ---- */
   @media (max-width:640px){
     .nav-inner{padding:11px 16px;}
@@ -286,6 +311,12 @@
     .cta-band h2{font-size:18px;}
     .cta-band p{font-size:12.5px;margin-bottom:18px;}
 
+    .download-grid{gap:10px;}
+    .download-card{padding:18px 16px;border-radius:12px;}
+    .download-card h3{font-size:16px;}
+    .download-card p{font-size:12.5px;margin-bottom:16px;}
+    .install-note{padding:14px 16px;border-radius:10px;}
+
     footer{padding:22px 16px;font-size:11px;}
   }
 </style>
@@ -302,6 +333,7 @@
     </a>
     <div class="nav-links">
       <a href="#platform">Platform</a>
+      <a href="#download">Download</a>
       <a href="#screenshots">Screenshots</a>
       <a href="#contact">Contact</a>
     </div>
@@ -384,6 +416,36 @@
   </div>
 </section>
 
+<section id="download">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Get the app</p>
+      <h2>Take IPS with you</h2>
+      <p>Same account, same data — on your phone or your desktop, download IPS directly instead of going through an app store.</p>
+    </div>
+    <div class="download-grid">
+      <div class="download-card">
+        <p class="tag">Android</p>
+        <h3>Download APK</h3>
+        <p>Download the latest version of the IPS Android app directly to your device.</p>
+        <a href="#" id="dl-android" class="btn btn-primary download-btn" aria-disabled="true">Checking for a build…</a>
+      </div>
+      <div class="download-card">
+        <p class="tag">Windows</p>
+        <h3>Download for Windows</h3>
+        <p>Install IPS as a desktop app on Windows, with the same account you already use.</p>
+        <a href="#" id="dl-windows" class="btn btn-primary download-btn" aria-disabled="true">Checking for a build…</a>
+      </div>
+    </div>
+    <div class="install-note">
+      <div>
+        <strong>Android installation</strong>
+        <p>After downloading the APK, your device may ask you to allow installation from unknown sources. Follow the on-screen prompt to finish installing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="screenshots">
   <div class="wrap">
     <div class="section-head">
@@ -418,6 +480,37 @@
     var dark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('ips_theme', dark ? 'dark' : 'light');
   });
+</script>
+
+<script>
+  // This page is static (built with no env vars, deployed straight to
+  // GitHub Pages -- see build-pages-site.cjs), so it can't read
+  // VITE_API_BASE_URL the way the real app does. The hosted backend's own
+  // domain is hardcoded here just for this one fetch instead.
+  var API_ORIGIN = 'https://ips-thqh.onrender.com';
+
+  function wireDownloadButton(el, url, label) {
+    if (url) {
+      el.href = url;
+      el.textContent = label;
+      el.removeAttribute('aria-disabled');
+    } else {
+      el.textContent = 'Not available yet';
+      el.setAttribute('aria-disabled', 'true');
+    }
+  }
+
+  fetch(API_ORIGIN + '/api/release/latest')
+    .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+    .then(function (data) {
+      var artifacts = data.artifacts || {};
+      wireDownloadButton(document.getElementById('dl-android'), artifacts.android, 'Download APK');
+      wireDownloadButton(document.getElementById('dl-windows'), artifacts.windows, 'Download for Windows');
+    })
+    .catch(function () {
+      wireDownloadButton(document.getElementById('dl-android'), null, 'Download APK');
+      wireDownloadButton(document.getElementById('dl-windows'), null, 'Download for Windows');
+    });
 </script>
 
 </body>
