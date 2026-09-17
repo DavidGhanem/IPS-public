@@ -196,6 +196,26 @@
   .card h3{font-size:15px;font-weight:700;margin:0 0 6px;}
   .card p{font-size:13.5px;color:var(--text-dim);line-height:1.55;margin:0;}
 
+  /* ---- pricing ---- */
+  .pricing-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  @media (max-width:900px){.pricing-grid{grid-template-columns:repeat(3,1fr);}}
+  @media (max-width:640px){.pricing-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:420px){.pricing-grid{grid-template-columns:1fr;}}
+  .price-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:22px 18px;text-align:center;
+  }
+  .price-range{
+    font-size:12.5px;font-weight:600;color:var(--text-dim);
+    margin:0 0 12px;line-height:1.4;
+  }
+  .price-amount{
+    font-family:"Manrope",system-ui,sans-serif;
+    font-size:26px;font-weight:800;letter-spacing:-.01em;color:var(--text);
+    margin:0;
+  }
+  .price-amount span{font-size:13px;font-weight:600;color:var(--text-faint);}
+
   /* ---- platforms ---- */
   .platforms{
     background:var(--surface);border:1px solid var(--border);border-radius:14px;
@@ -327,6 +347,12 @@
     .card h3{font-size:13.5px;}
     .card p{font-size:12.5px;}
 
+    .pricing-grid{gap:10px;}
+    .price-card{padding:16px 12px;}
+    .price-range{font-size:11px;margin-bottom:8px;}
+    .price-amount{font-size:20px;}
+    .price-amount span{font-size:11px;}
+
     .platforms{padding:16px;flex-direction:row;flex-wrap:wrap;gap:14px;}
     .platform{min-width:44%;flex:1 1 44%;}
     .platform .tag{font-size:10px;}
@@ -361,6 +387,7 @@
     </a>
     <div class="nav-links">
       <a href="#platform">Platform</a>
+      <a href="#pricing">Pricing</a>
       <a href="#screenshots">Screenshots</a>
       <a href="#contact">Contact</a>
     </div>
@@ -428,6 +455,38 @@
         <div class="icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
         <h3>Private by account</h3>
         <p>Each seller only ever sees their own customers and records — no shared or cross-account visibility.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="section-eyebrow">Pricing</p>
+      <h2>One flat rate, based on your customer count</h2>
+      <p>No per-seat fees, no feature gating — every plan gets the full platform. Pricing simply scales with how many customers you're managing.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <p class="price-range">0–100 customers</p>
+        <p class="price-amount">$50<span>/mo</span></p>
+      </div>
+      <div class="price-card">
+        <p class="price-range">101–250 customers</p>
+        <p class="price-amount">$75<span>/mo</span></p>
+      </div>
+      <div class="price-card">
+        <p class="price-range">250–500 customers</p>
+        <p class="price-amount">$100<span>/mo</span></p>
+      </div>
+      <div class="price-card">
+        <p class="price-range">500–1,000 customers</p>
+        <p class="price-amount">$125<span>/mo</span></p>
+      </div>
+      <div class="price-card">
+        <p class="price-range">1,000+ customers</p>
+        <p class="price-amount">$150<span>/mo</span></p>
       </div>
     </div>
   </div>
