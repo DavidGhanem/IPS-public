@@ -12,7 +12,19 @@
     <title>IPS - Internet Program System</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/app/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/app/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/app/apple-touch-icon.png" />
     <link rel="apple-touch-icon" href="/app/favicon.png" />
+    <!-- PWA "Add to Home Screen" -- iOS has no App Store build (see
+         tauri-plugin-apk-installer's own notes on why there's no iOS
+         equivalent to Android's self-updating APK install), so this is
+         the actual iOS install path: open this URL in Safari, Share ->
+         Add to Home Screen. manifest.json covers Android/Chrome's own
+         install prompt too, for free, as a side effect. -->
+    <link rel="manifest" href="/app/manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="IPS" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />

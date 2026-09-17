@@ -293,8 +293,9 @@
   }
 
   /* ---- download ---- */
-  .download-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media (max-width:700px){.download-grid{grid-template-columns:1fr;}}
+  .download-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  @media (max-width:900px){.download-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:560px){.download-grid{grid-template-columns:1fr;}}
   .download-card{
     background:var(--surface);border:1px solid var(--border);border-radius:14px;
     padding:26px 24px;
@@ -530,11 +531,23 @@
         <p>Install IPS as a desktop app on Windows, with the same account you already use.</p>
         <a href="#" id="dl-windows" class="btn btn-primary download-btn" aria-disabled="true">Checking for a build…</a>
       </div>
+      <div class="download-card">
+        <p class="tag">iPhone &amp; iPad</p>
+        <h3>Add to Home Screen</h3>
+        <p>Apple doesn't allow apps to be installed outside the App Store, so this is the iOS install path: open IPS in Safari, then add it to your home screen for a real app icon and full-screen use.</p>
+        <a href="/app/" class="btn btn-primary download-btn" target="_blank" rel="noopener">Open the app</a>
+      </div>
     </div>
     <div class="install-note">
       <div>
         <strong>Android installation</strong>
         <p>After downloading the APK, your device may ask you to allow installation from unknown sources. Follow the on-screen prompt to finish installing.</p>
+      </div>
+    </div>
+    <div class="install-note">
+      <div>
+        <strong>iOS installation</strong>
+        <p>Open the link above in Safari (not Chrome — Add to Home Screen only works from Safari on iOS), tap the Share icon, then "Add to Home Screen". IPS will appear as its own icon and open full-screen, just like an installed app.</p>
       </div>
     </div>
   </div>
