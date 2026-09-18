@@ -218,7 +218,26 @@
     font-size:19px;font-weight:800;letter-spacing:-.01em;color:var(--text);
     margin:0;
   }
-  .price-amount span{font-size:11px;font-weight:600;color:var(--text-faint);}
+  .price-amount .price-suffix{font-size:11px;font-weight:600;color:var(--text-faint);}
+
+  /* ---- billing toggle ---- */
+  .billing-toggle-row{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .billing-toggle{
+    display:inline-flex;border:1px solid var(--border);border-radius:10px;padding:3px;
+    background:var(--surface);
+  }
+  .billing-toggle button{
+    border:none;background:none;cursor:pointer;
+    padding:7px 16px;border-radius:7px;font-size:13px;font-weight:700;
+    color:var(--text-dim);font-family:"Inter",system-ui,sans-serif;
+  }
+  .billing-toggle button.active{background:var(--signal);color:#fff;}
+  .free-month-badge{
+    font-size:11.5px;font-weight:700;color:var(--signal-dim);
+    background:var(--signal-soft);border-radius:20px;padding:5px 12px;
+    display:none;
+  }
+  .free-month-badge.visible{display:inline-block;}
 
   /* ---- platforms ---- */
   .platforms{
@@ -273,6 +292,42 @@
   }
   .lightbox-close:hover{background:rgba(255,255,255,.16);}
 
+  /* ---- mobile platform picker ---- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:100;
+    background:rgba(4,8,14,.6);
+    display:flex;align-items:center;justify-content:center;
+    padding:20px;
+    opacity:0;pointer-events:none;
+    transition:opacity .15s ease;
+  }
+  .modal-overlay.open{opacity:1;pointer-events:auto;}
+  .modal-box{
+    position:relative;width:100%;max-width:440px;
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:28px 24px 24px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25);
+  }
+  .modal-close{
+    position:absolute;top:14px;right:14px;
+    width:32px;height:32px;border-radius:8px;
+    background:none;border:1px solid var(--border);color:var(--text-dim);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .modal-close:hover{border-color:var(--signal);color:var(--text);}
+  .modal-box h3{font-size:17px;font-weight:800;margin:0 0 6px;letter-spacing:-.01em;}
+  .modal-box > p{font-size:13px;color:var(--text-dim);line-height:1.5;margin:0 0 20px;}
+  .platform-choices{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .platform-choice{
+    border:1px solid var(--border);border-radius:12px;padding:16px 14px;text-align:center;
+  }
+  .platform-choice .tag{
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--signal-dim);margin:0 0 6px;
+  }
+  .platform-choice p.note{font-size:11.5px;color:var(--text-dim);line-height:1.5;margin:10px 0 0;}
+  .platform-choice .btn{width:100%;}
+
   /* ---- cta band ---- */
   .cta-band{
     background:linear-gradient(135deg,var(--sidebar),#0d1a2b);
@@ -293,8 +348,7 @@
   }
 
   /* ---- download ---- */
-  .download-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  @media (max-width:900px){.download-grid{grid-template-columns:1fr 1fr;}}
+  .download-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media (max-width:560px){.download-grid{grid-template-columns:1fr;}}
   .download-card{
     background:var(--surface);border:1px solid var(--border);border-radius:14px;
@@ -356,7 +410,7 @@
     .price-card{padding:10px 8px;}
     .price-range{font-size:10px;margin-bottom:4px;}
     .price-amount{font-size:17px;}
-    .price-amount span{font-size:10px;}
+    .price-amount .price-suffix{font-size:10px;}
 
     .platforms{padding:16px;flex-direction:row;flex-wrap:wrap;gap:14px;}
     .platform{min-width:44%;flex:1 1 44%;}
@@ -374,6 +428,13 @@
     .download-card{padding:18px 16px;border-radius:12px;}
     .download-card h3{font-size:16px;}
     .download-card p{font-size:12.5px;margin-bottom:16px;}
+
+    .modal-box{padding:22px 18px 18px;}
+    .platform-choices{grid-template-columns:1fr;gap:10px;}
+
+    .billing-toggle-row{gap:8px;}
+    .billing-toggle button{padding:6px 12px;font-size:12.5px;}
+    .free-month-badge{font-size:10.5px;padding:4px 10px;}
     .install-note{padding:14px 16px;border-radius:10px;}
 
     footer{padding:22px 16px;font-size:11px;}
@@ -472,26 +533,33 @@
       <h2>One flat rate, based on your customer count</h2>
       <p>No per-seat fees, no feature gating — every plan gets the full platform. Pricing simply scales with how many customers you're managing.</p>
     </div>
+    <div class="billing-toggle-row">
+      <div class="billing-toggle" id="billing-toggle">
+        <button type="button" class="active" data-billing="monthly">Monthly</button>
+        <button type="button" data-billing="yearly">Yearly</button>
+      </div>
+      <span class="free-month-badge" id="free-month-badge">Pay yearly, get a month free</span>
+    </div>
     <div class="pricing-grid">
       <div class="price-card">
         <p class="price-range">0–100 customers</p>
-        <p class="price-amount">$50<span>/mo</span></p>
+        <p class="price-amount" data-monthly="50"><span class="price-value">$50</span><span class="price-suffix">/mo</span></p>
       </div>
       <div class="price-card">
         <p class="price-range">101–250 customers</p>
-        <p class="price-amount">$75<span>/mo</span></p>
+        <p class="price-amount" data-monthly="75"><span class="price-value">$75</span><span class="price-suffix">/mo</span></p>
       </div>
       <div class="price-card">
         <p class="price-range">250–500 customers</p>
-        <p class="price-amount">$100<span>/mo</span></p>
+        <p class="price-amount" data-monthly="100"><span class="price-value">$100</span><span class="price-suffix">/mo</span></p>
       </div>
       <div class="price-card">
         <p class="price-range">500–1,000 customers</p>
-        <p class="price-amount">$125<span>/mo</span></p>
+        <p class="price-amount" data-monthly="125"><span class="price-value">$125</span><span class="price-suffix">/mo</span></p>
       </div>
       <div class="price-card">
         <p class="price-range">1,000+ customers</p>
-        <p class="price-amount">$150<span>/mo</span></p>
+        <p class="price-amount" data-monthly="150"><span class="price-value">$150</span><span class="price-suffix">/mo</span></p>
       </div>
     </div>
   </div>
@@ -505,7 +573,7 @@
     </div>
     <div class="platforms">
       <div class="platform"><p class="tag">Desktop</p><p class="name">Windows app</p></div>
-      <div class="platform"><p class="tag">Mobile</p><p class="name">Android app</p></div>
+      <div class="platform"><p class="tag">Mobile</p><p class="name">iOS &amp; Android</p></div>
       <div class="platform"><p class="tag">Anywhere</p><p class="name">Web browser</p></div>
     </div>
   </div>
@@ -520,22 +588,16 @@
     </div>
     <div class="download-grid">
       <div class="download-card">
-        <p class="tag">Android</p>
-        <h3>Download APK</h3>
-        <p>Download the latest version of the IPS Android app directly to your device.</p>
-        <a href="#" id="dl-android" class="btn btn-primary download-btn" aria-disabled="true">Checking for a build…</a>
+        <p class="tag">Mobile</p>
+        <h3>Get IPS on your phone</h3>
+        <p>Same account, same data, on iPhone or Android — pick your platform to continue.</p>
+        <button type="button" id="open-mobile-picker" class="btn btn-primary download-btn">Choose Android or iOS</button>
       </div>
       <div class="download-card">
         <p class="tag">Windows</p>
         <h3>Download for Windows</h3>
         <p>Install IPS as a desktop app on Windows, with the same account you already use.</p>
         <a href="#" id="dl-windows" class="btn btn-primary download-btn" aria-disabled="true">Checking for a build…</a>
-      </div>
-      <div class="download-card">
-        <p class="tag">iPhone &amp; iPad</p>
-        <h3>Add to Home Screen</h3>
-        <p>Apple doesn't allow apps to be installed outside the App Store, so this is the iOS install path: open IPS in Safari, then add it to your home screen for a real app icon and full-screen use.</p>
-        <a href="/app/" class="btn btn-primary download-btn" target="_blank" rel="noopener">Open the app</a>
       </div>
     </div>
     <div class="install-note">
@@ -547,7 +609,7 @@
     <div class="install-note">
       <div>
         <strong>iOS installation</strong>
-        <p>Open the link above in Safari (not Chrome — Add to Home Screen only works from Safari on iOS), tap the Share icon, then "Add to Home Screen". IPS will appear as its own icon and open full-screen, just like an installed app.</p>
+        <p>Use "Open the app" above in Safari (not Chrome — Add to Home Screen only works from Safari on iOS), tap the Share icon, then "Add to Home Screen". IPS will appear as its own icon and open full-screen, just like an installed app.</p>
       </div>
     </div>
   </div>
@@ -592,11 +654,107 @@
   <img id="lightbox-img" src="" alt="" />
 </div>
 
+<!-- "Mobile" download card opens this instead of downloading directly --
+     Android and iOS need two different actions (a real APK download vs.
+     Safari's Add to Home Screen, which isn't a download at all -- see
+     the note inside), so this picks between them instead of guessing
+     from the visitor's device. The close button/backdrop/Escape handling
+     mirror the screenshot lightbox above so a misclick is never a dead
+     end. -->
+<div class="modal-overlay" id="mobile-picker">
+  <div class="modal-box">
+    <button type="button" class="modal-close" id="mobile-picker-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <h3>Get IPS on your phone</h3>
+    <p>Same account, same data — pick the platform you're on.</p>
+    <div class="platform-choices">
+      <div class="platform-choice">
+        <p class="tag">Android</p>
+        <a href="#" id="dl-android" class="btn btn-primary" aria-disabled="true">Checking for a build…</a>
+        <p class="note">Downloads the APK directly. Your device may ask permission to install from unknown sources.</p>
+      </div>
+      <div class="platform-choice">
+        <p class="tag">iPhone &amp; iPad</p>
+        <a href="/app/" class="btn btn-primary" target="_blank" rel="noopener">Open the app</a>
+        <p class="note">Opens in Safari — tap Share, then "Add to Home Screen" for a real app icon.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   document.getElementById('theme-toggle').addEventListener('click', function () {
     var dark = document.documentElement.classList.toggle('dark');
     localStorage.setItem('ips_theme', dark ? 'dark' : 'light');
   });
+</script>
+
+<script>
+  // "Mobile" download card -> Android/iOS picker modal. Same open/close
+  // pattern as the screenshot lightbox (backdrop click, Escape, an
+  // explicit close button) so an accidental tap never traps anyone.
+  (function () {
+    var modal = document.getElementById('mobile-picker');
+    var openBtn = document.getElementById('open-mobile-picker');
+    var closeBtn = document.getElementById('mobile-picker-close');
+
+    function openModal() {
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+  })();
+</script>
+
+<script>
+  // Monthly/Yearly pricing toggle -- yearly is priced at 11x the monthly
+  // rate instead of 12x, i.e. paying for the year up front is the same as
+  // getting one month free. Every .price-amount carries its own
+  // data-monthly base price, so this just recomputes and re-renders each
+  // one instead of hardcoding a parallel yearly price list that could
+  // drift out of sync with the monthly one.
+  (function () {
+    var toggle = document.getElementById('billing-toggle');
+    var badge = document.getElementById('free-month-badge');
+    var amounts = document.querySelectorAll('.price-amount');
+
+    function render(billing) {
+      amounts.forEach(function (el) {
+        var monthly = Number(el.dataset.monthly);
+        var value = el.querySelector('.price-value');
+        var suffix = el.querySelector('.price-suffix');
+        if (billing === 'yearly') {
+          value.textContent = '$' + (monthly * 11).toLocaleString();
+          suffix.textContent = '/yr';
+        } else {
+          value.textContent = '$' + monthly;
+          suffix.textContent = '/mo';
+        }
+      });
+      badge.classList.toggle('visible', billing === 'yearly');
+    }
+
+    toggle.addEventListener('click', function (e) {
+      var btn = e.target.closest('button[data-billing]');
+      if (!btn) return;
+      toggle.querySelectorAll('button').forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      render(btn.dataset.billing);
+    });
+  })();
 </script>
 
 <script>
